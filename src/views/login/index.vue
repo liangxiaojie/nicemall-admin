@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">一体化影像大数据平台</h3>
+      <h3 class="title">安徽和恒服务平台</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
@@ -26,64 +26,65 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isvalidUsername } from '@/utils/validate';
 
 export default {
   name: 'login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isvalidUsername(value)) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('请输入正确的用户名'));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validatePass = (rule, value, callback) => {
-      if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+      if (value.length < 6) {
+        callback(new Error('密码不能小于6位'));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       loginForm: {
         username: 'admin',
-        password: 'admin'
+        password: 'admin',
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        password: [{ required: true, trigger: 'blur', validator: validatePass }],
       },
       loading: false,
-      pwdType: 'password'
-    }
+      pwdType: 'password',
+    };
   },
   methods: {
     showPwd() {
       if (this.pwdType === 'password') {
-        this.pwdType = ''
+        this.pwdType = '';
       } else {
-        this.pwdType = 'password'
+        this.pwdType = 'password';
       }
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true
+          this.loading = true;
           this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: '/' })
+            this.loading = false;
+            this.$router.push({ path: '/' });
           }).catch(() => {
-            this.loading = false
-          })
+            this.loading = false;
+          });
         } else {
-          console.log('error submit!!')
-          return false
+          console.log('error submit!!');
+          return false;
         }
-      })
-    }
-  }
-}
+        return true;
+      });
+    },
+  },
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

@@ -37,23 +37,21 @@ export default {
   name: 'SidebarItem',
   props: {
     routes: {
-      type: Array
+      type: Array,
     },
     isNest: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   methods: {
     hasOneShowingChildren(children) {
-      const showingChildren = children.filter(item => {
-        return !item.hidden
-      })
+      const showingChildren = children.filter(item => !item.hidden);
       if (showingChildren.length === 1) {
-        return true
+        return true;
       }
-      return false
-    }
-  }
-}
+      return false;
+    },
+  },
+};
 </script>

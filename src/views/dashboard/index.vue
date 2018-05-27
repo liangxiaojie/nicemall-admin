@@ -6,17 +6,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'dashboard',
   computed: {
     ...mapGetters([
       'name',
-      'roles'
-    ])
-  }
-}
+      'roles',
+    ]),
+  },
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
