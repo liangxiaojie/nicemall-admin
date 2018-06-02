@@ -27,26 +27,15 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim();
       /* eslint no-unused-vars: 0 */
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then((response) => {
-          const { token } = response.data;
-          setToken(token);
-          commit('SET_TOKEN', token);
+        login(userInfo.username.trim(), userInfo.password).then((res) => {
+          const { username } = res.data;
+          setToken(username);
+          commit('SET_TOKEN', username);
           resolve();
         }).catch((error) => {
-          // reject(error)
-          const data = {
-            roles: ['admin'],
-            token: 'admin',
-            introduction: '我是超级管理员',
-            avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            name: 'Super Admin',
-          };
-          setToken(data.token);
-          commit('SET_TOKEN', data.token);
-          resolve();
+          reject(error)
         });
       });
     },
@@ -54,35 +43,19 @@ const user = {
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then((response) => {
-          const { roles, name, avatar } = response.data;
+        getInfo().then((response) => {
+          const { roles, username, avatar } = response.data;
           if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', roles);
           } else {
             /* eslint prefer-promise-reject-errors: 0 */
             reject('getInfo: roles must be a non-null array !');
           }
-          commit('SET_NAME', name);
+          commit('SET_NAME', username);
           commit('SET_AVATAR', avatar);
           resolve(response);
         }).catch((error) => {
-          // reject(error)
-          const data = {
-            roles: ['admin'],
-            token: 'admin',
-            introduction: '我是超级管理员',
-            avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-            name: 'Super Admin',
-          };
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles);
-          } else {
-            /* eslint prefer-promise-reject-errors: 0 */
-            reject('getInfo: roles must be a non-null array !');
-          }
-          commit('SET_NAME', data.name);
-          commit('SET_AVATAR', data.avatar);
-          resolve(data);
+          reject(error)
         });
       });
     },
@@ -90,7 +63,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '');
           commit('SET_ROLES', []);
           removeToken();
