@@ -38,26 +38,40 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/sysManage',
+    path: '/system',
     component: Layout,
-    redirect: '/sysManage/subsystem',
+    redirect: '/system/subsystem',
     meta: { title: '系统管理', icon: 'form' },
     children: [
       {
         path: 'subsystem',
-        name: 'Form',
+        name: 'subsystem',
         component: () => import('@/views/tree/index'),
         meta: { title: '系统管理员' },
       }, {
         path: 'user',
-        name: 'Form',
+        name: 'user',
         component: () => import('@/views/form/index'),
         meta: { title: '角色管理' },
       }, {
         path: 'role',
-        name: 'Form',
+        name: 'role',
         component: () => import('@/views/table/index'),
         meta: { title: '系统设置' },
+      },
+    ],
+  },
+
+  {
+    path: '/users',
+    component: Layout,
+    redirect: '/users/index',
+    children: [
+      {
+        path: 'index',
+        name: 'users',
+        component: () => import('@/views/users/index'),
+        meta: { title: '用户管理', icon: 'user' },
       },
     ],
   },
@@ -70,4 +84,3 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap,
 });
-

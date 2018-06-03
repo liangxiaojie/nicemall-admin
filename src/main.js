@@ -13,6 +13,7 @@ import '@/permission'; // permission control
 
 import App from './App';
 import router from './router';
+import apolloProvider from './apollo';
 import store from './store';
 
 Vue.use(ElementUI, { locale });
@@ -22,5 +23,6 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  provide: apolloProvider.provide(),
   render: h => h(App),
 }).$mount('#app');

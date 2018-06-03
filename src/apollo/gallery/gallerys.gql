@@ -1,0 +1,6 @@
+query getGallerys {
+  gallerys {
+    imgSrc
+    linkUrl
+  }
+}
