@@ -63,6 +63,20 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/gallerys',
+    component: Layout,
+    redirect: '/gallerys/index',
+    children: [
+      {
+        path: 'index',
+        name: 'gallerys',
+        component: () => import('@/views/gallerys'),
+        meta: { title: '轮播图管理', icon: 'user' },
+      },
+    ],
+  },
+
+  {
     path: '/users',
     component: Layout,
     redirect: '/users/index',

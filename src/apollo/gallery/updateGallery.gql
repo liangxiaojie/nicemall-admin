@@ -1,0 +1,19 @@
+mutation updateGallery(
+  $_id: ID!,
+  $imgSrc: String!,
+  $linkUrl: String,
+  $order: Int
+  ) {
+  updateGallery(_id: $_id, input: {
+    imgSrc: $imgSrc,
+    linkUrl: $linkUrl,
+    order: $order
+  }) {
+    _id
+    imgSrc
+    linkUrl
+    order
+    created_time
+    updated_time
+  }
+}

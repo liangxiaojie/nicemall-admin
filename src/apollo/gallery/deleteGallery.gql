@@ -1,5 +1,5 @@
-query getGallerys {
-  gallerys {
+mutation deleteGallery($_id: ID!) {
+  deleteGallery(_id: $_id) {
     _id
     imgSrc
     linkUrl

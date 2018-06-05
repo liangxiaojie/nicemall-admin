@@ -1,0 +1,18 @@
+mutation createGallery(
+  $imgSrc: String!,
+  $linkUrl: String,
+  $order: Int
+  ) {
+  createGallery(input: {
+    imgSrc: $imgSrc,
+    linkUrl: $linkUrl,
+    order: $order
+  }) {
+    _id
+    imgSrc
+    linkUrl
+    order
+    created_time
+    updated_time
+  }
+}
