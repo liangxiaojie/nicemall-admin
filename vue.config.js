@@ -20,4 +20,7 @@ module.exports = {
         symbolId: 'icon-[name]',
       });
   },
+  devServer: {
+    disableHostCheck: true,
+  },
 };
