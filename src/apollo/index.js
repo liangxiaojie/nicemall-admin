@@ -32,6 +32,19 @@ const apolloClient = new ApolloClient({
   link,
   cache: new InMemoryCache(),
   connectToDevTools: true,
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'ignore',
+    },
+    query: {
+      fetchPolicy: 'network-only',
+      errorPolicy: 'all',
+    },
+    mutate: {
+      errorPolicy: 'all',
+    },
+  },
 })
 
 export default new VueApollo({

@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
-    <div class="filter-container">
+    <div class="toolbar">
       <el-button class="filter-item" @click="handleCreate" type="primary" icon="el-icon-edit">创建</el-button>
     </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column label="图像">
+      <el-table-column label="图像" width="220">
         <template slot-scope="scope">
           <img class="gallery-image" :src="scope.row.imgSrc" />
         </template>
@@ -186,7 +186,7 @@ export default {
 
 <style lang="scss" scoped>
 .gallery-image {
-  max-width: 100%;
+  max-width: 200px;
 }
 .avatar-uploader {
   width: 100%;
@@ -214,5 +214,8 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.toolbar {
+  padding: 10px 0;
 }
 </style>

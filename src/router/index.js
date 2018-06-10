@@ -46,17 +46,17 @@ export const constantRouterMap = [
       {
         path: 'subsystem',
         name: 'subsystem',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/dashboard/index'),
         meta: { title: '系统管理员' },
       }, {
         path: 'user',
         name: 'user',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/dashboard/index'),
         meta: { title: '角色管理' },
       }, {
         path: 'role',
         name: 'role',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/dashboard/index'),
         meta: { title: '系统设置' },
       },
     ],
