@@ -1,43 +1,28 @@
 <template>
   <div class="app-container">
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
+      <el-table-column label="用户头像">
         <template slot-scope="scope">
-          {{scope.$index}}
+          <img class="headimg" :src="scope.row.headimgurl" />
         </template>
       </el-table-column>
-      <el-table-column label="Title">
+      <el-table-column prop="nickname" label="用户昵称" />
+      <el-table-column prop="sex" label="性别" />
+      <el-table-column prop="province" label="省份" />
+      <el-table-column prop="city" label="城市" />
+      <el-table-column label="创建时间">
         <template slot-scope="scope">
-          {{scope.row.title}}
+          {{ scope.row.created_at | parseTime }}
         </template>
       </el-table-column>
-      <el-table-column label="Author" width="110" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.author}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="Pageviews" width="110" align="center">
-        <template slot-scope="scope">
-          {{scope.row.pageviews}}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="Status" width="110" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.status | statusFilter">{{scope.row.status}}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="created_at" label="Display_time" width="200">
-        <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span>{{scope.row.display_time}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="credit_score" label="芝麻信用分" />
     </el-table>
   </div>
 </template>
 
 <script>
-import { getGallerys } from '@/apollo/gallery';
+import { getUsers } from '@/apollo/user';
+import { parseTime } from '@/utils'
 
 export default {
   data() {
@@ -46,24 +31,17 @@ export default {
       listLoading: true,
     };
   },
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger',
-      };
-      return statusMap[status];
-    },
-  },
   created() {
     this.fetchData();
+  },
+  filters: {
+    parseTime
   },
   methods: {
     fetchData() {
       this.listLoading = true;
-      getGallerys(this.$apollo).then((data) => {
-        this.list = data.gallerys;
+      getUsers(this.$apollo).then((data) => {
+        this.list = data.users;
         this.listLoading = false;
       });
     },

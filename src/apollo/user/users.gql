@@ -1,0 +1,16 @@
+query getUsers {
+  users {
+    _id
+    openid
+    nickname
+    sex
+    province
+    city
+    country
+    headimgurl
+    privilege
+    unionid
+    created_at
+    credit_score
+  }
+}
