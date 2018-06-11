@@ -48,3 +48,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.headimg {
+  max-width: 80px;
+}
+</style>
