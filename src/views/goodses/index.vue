@@ -4,16 +4,18 @@
       <el-button class="filter-item" @click="handleCreate" type="primary" icon="el-icon-edit">创建</el-button>
     </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
-      <el-table-column label="图像" width="220">
+      <el-table-column label="图像" width="120">
         <template slot-scope="scope">
           <img class="gallery-image" :src="scope.row.imgSrc" />
         </template>
       </el-table-column>
-      <el-table-column label="链接地址" align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.linkUrl}}</span>
-        </template>
-      </el-table-column>
+      <el-table-column prop="name" label="商品名称" />
+      <el-table-column prop="discription" label="描述" />
+      <el-table-column prop="price" label="价格" />
+      <el-table-column prop="priceOld" label="原价" />
+      <el-table-column prop="sales" label="销量" />
+      <el-table-column prop="store_nums" label="库存数量" />
+      <el-table-column prop="mark" label="评分" />
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
@@ -24,6 +26,12 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :rules="rules" ref="dataForm" :model="temp" style="margin: 0 30px;">
+        <el-form-item label="商品名称" prop="name">
+          <el-input v-model="temp.name"></el-input>
+        </el-form-item>
+        <el-form-item label="描述" prop="discription">
+          <el-input v-model="temp.discription"></el-input>
+        </el-form-item>
         <el-form-item label="图像" prop="imgSrc">
           <el-upload
             class="avatar-uploader"
@@ -35,8 +43,14 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="链接地址" prop="linkUrl">
-          <el-input v-model="temp.linkUrl"></el-input>
+        <el-form-item label="价格" prop="price">
+          <el-input v-model="temp.price"></el-input>
+        </el-form-item>
+        <el-form-item label="原价" prop="priceOld">
+          <el-input v-model="temp.priceOld"></el-input>
+        </el-form-item>
+        <el-form-item label="库存数量" prop="store_nums">
+          <el-input v-model="temp.store_nums"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -195,7 +209,7 @@ export default {
 
 <style lang="scss" scoped>
 .gallery-image {
-  max-width: 200px;
+  max-width: 100px;
 }
 .avatar-uploader {
   width: 100%;

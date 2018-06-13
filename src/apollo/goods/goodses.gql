@@ -7,5 +7,7 @@ query getGoodses {
     price
     priceOld
     sales
+    store_nums
+    mark
   }
 }

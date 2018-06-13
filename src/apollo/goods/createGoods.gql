@@ -25,6 +25,8 @@ mutation createGoods(
     price
     priceOld
     sales
+    store_nums
+    mark
     created_time
     updated_time
   }
