@@ -1,0 +1,11 @@
+query getGoodses {
+  goodses(first: 0) {
+    _id
+    imgSrc
+    name
+    discription
+    price
+    priceOld
+    sales
+  }
+}

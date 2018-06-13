@@ -38,4 +38,7 @@ export async function deleteGallery(client, _id) {
 
 export default {
   getGallerys,
+  createGallery,
+  updateGallery,
+  deleteGallery,
 }

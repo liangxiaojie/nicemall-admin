@@ -1,0 +1,32 @@
+mutation updateGoods(
+  $_id: ID!,
+  $name: String!,
+  $imgSrc: String!,
+  $discription: String,
+  $price: Int!,
+  $priceOld: Int,
+  $sales: Int!,
+  $store_nums: Int!,
+  $mark: Float!
+  ) {
+  updateGoods(_id: $_id, input: {
+    name: $name,
+    imgSrc: $imgSrc,
+    discription: $discription,
+    price: $price,
+    priceOld: $priceOld,
+    sales: $sales,
+    store_nums: $store_nums,
+    mark: $mark
+  }) {
+    _id
+    name
+    imgSrc
+    discription
+    price
+    priceOld
+    sales
+    created_time
+    updated_time
+  }
+}

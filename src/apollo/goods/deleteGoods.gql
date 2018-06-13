@@ -1,0 +1,13 @@
+mutation deleteGoods($_id: ID!) {
+  deleteGoods(_id: $_id) {
+    _id
+    name
+    imgSrc
+    discription
+    price
+    priceOld
+    sales
+    created_time
+    updated_time
+  }
+}
