@@ -3,9 +3,10 @@ import createGoodsGQL from './createGoods.gql'
 import updateGoodsGQL from './updateGoods.gql'
 import deleteGoodsGQL from './deleteGoods.gql'
 
-export async function getGoodses(client) {
+export async function getGoodses(client, listQuery) {
   const { data } = await client.query({
     query: goodsesGQL,
+    variables: listQuery,
   })
   return data;
 }

@@ -3,6 +3,14 @@
     <div class="toolbar">
       <el-button class="filter-item" @click="handleCreate" type="primary" icon="el-icon-edit">创建</el-button>
     </div>
+    <div class="filter-container">
+      <el-radio-group v-model="listQuery.type" @change="fetchData">
+        <el-radio-button :label="-1">全部</el-radio-button>
+        <el-radio-button :label="0">普通商品</el-radio-button>
+        <el-radio-button :label="1">租赁商品</el-radio-button>
+        <el-radio-button :label="2">0元购</el-radio-button>
+      </el-radio-group>
+    </div>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit highlight-current-row>
       <el-table-column label="图像" width="120">
         <template slot-scope="scope">
@@ -11,6 +19,11 @@
       </el-table-column>
       <el-table-column prop="name" label="商品名称" />
       <el-table-column prop="discription" label="描述" />
+      <el-table-column label="商品类型">
+        <template slot-scope="scope">
+          {{ scope.row.type == 0 ? '普通商品' : scope.row.type == 1 ? '租赁商品' : scope.row.type == 2 ? '0元购' : '' }}
+        </template>
+      </el-table-column>
       <el-table-column prop="price" label="价格" />
       <el-table-column prop="priceOld" label="原价" />
       <el-table-column prop="sales" label="销量" />
@@ -28,6 +41,13 @@
       <el-form :rules="rules" ref="dataForm" :model="temp" style="margin: 0 30px;">
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="temp.name"></el-input>
+        </el-form-item>
+        <el-form-item label="商品类型" prop="type">
+          <el-radio-group v-model="temp.type">
+            <el-radio-button :label="0">普通商品</el-radio-button>
+            <el-radio-button :label="1">租赁商品</el-radio-button>
+            <el-radio-button :label="2">0元购</el-radio-button>
+          </el-radio-group>
         </el-form-item>
         <el-form-item label="描述" prop="discription">
           <el-input v-model="temp.discription"></el-input>
@@ -71,7 +91,11 @@ export default {
     return {
       list: null,
       listLoading: true,
+      listQuery: {
+        type: -1,
+      },
       temp: {
+        type: 0,
         name: '',
         discription: '',
         imgSrc: '',
@@ -100,6 +124,7 @@ export default {
   methods: {
     resetTemp() {
       this.temp = {
+        type: 0,
         name: '',
         discription: '',
         imgSrc: '',
@@ -112,7 +137,7 @@ export default {
     },
     fetchData() {
       this.listLoading = true;
-      getGoodses(this.$apollo).then((data) => {
+      getGoodses(this.$apollo, this.listQuery).then((data) => {
         this.list = data.goodses;
         this.listLoading = false;
       });

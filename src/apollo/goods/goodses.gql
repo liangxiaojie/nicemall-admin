@@ -1,7 +1,10 @@
-query getGoodses {
-  goodses(first: 0) {
+query getGoodses($type: Int!) {
+  goodses(first: 0, query: {
+    type: $type
+  }) {
     _id
     imgSrc
+    type
     name
     discription
     price
