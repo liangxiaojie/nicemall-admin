@@ -12,6 +12,7 @@ Vue.use(VueApollo)
 const httpLink = new HttpLink({
   // You should use an absolute URL here
   uri: `${API_URL}/graphql`,
+  credentials: 'include',
 })
 
 const middlewareLink = new ApolloLink((operation, forward) => {
