@@ -1,0 +1,35 @@
+mutation updateOrder(
+  $_id: ID!,
+  $name: String!,
+  $type: Int!,
+  $imgSrc: String!,
+  $discription: String,
+  $price: Int!,
+  $priceOld: Int,
+  $sales: Int!,
+  $store_nums: Int!,
+  $mark: Float!
+  ) {
+  updateOrder(_id: $_id, input: {
+    name: $name,
+    imgSrc: $imgSrc,
+    type: $type,
+    discription: $discription,
+    price: $price,
+    priceOld: $priceOld,
+    sales: $sales,
+    store_nums: $store_nums,
+    mark: $mark
+  }) {
+    _id
+    name
+    type
+    imgSrc
+    discription
+    price
+    priceOld
+    sales
+    created_time
+    updated_time
+  }
+}

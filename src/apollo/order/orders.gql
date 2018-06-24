@@ -1,0 +1,17 @@
+query getOrders($type: Int!) {
+  orders(first: 0, query: {
+    type: $type
+  }) {
+    _id
+    order_no
+    delivery_address {
+      consignee
+      phone_number
+      address
+    }
+    express_status
+    pay_status
+    status
+    create_time
+  }
+}

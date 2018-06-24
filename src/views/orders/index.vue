@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { getGoodses, createGoods, updateGoods, deleteGoods } from '@/apollo/goods';
+import { getOrders, updateOrder } from '@/apollo/order';
 import { API_URL } from '@/config';
 
 export default {
@@ -125,8 +125,8 @@ export default {
     },
     fetchData() {
       this.listLoading = true;
-      getGoodses(this.$apollo, this.listQuery).then((data) => {
-        this.list = data.goodses;
+      getOrders(this.$apollo, this.listQuery).then((data) => {
+        this.list = data.orders;
         this.listLoading = false;
       });
     },
