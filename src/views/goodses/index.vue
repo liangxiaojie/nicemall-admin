@@ -52,7 +52,7 @@
         <el-form-item label="描述" prop="discription">
           <el-input v-model="temp.discription"></el-input>
         </el-form-item>
-        <el-form-item label="图像" prop="imgSrc">
+        <el-form-item label="商品展示图" prop="imgSrc">
           <el-upload
             class="avatar-uploader"
             :action="uploadUrl"
@@ -61,6 +61,17 @@
             :before-upload="beforeAvatarUpload">
             <img v-if="temp.imgSrc" :src="temp.imgSrc" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="商品轮播图" prop="images">
+          <el-upload
+            class="avatar-uploader"
+            :action="uploadUrl"
+            list-type="picture-card"
+            :file-list="temp.images"
+            :on-success="handleImagesSuccess"
+            :before-upload="beforeAvatarUpload">
+              <i class="el-icon-plus"></i>
           </el-upload>
         </el-form-item>
         <el-form-item label="价格" prop="price">
@@ -99,6 +110,7 @@ export default {
         name: '',
         discription: '',
         imgSrc: '',
+        images: [],
         price: 0,
         priceOld: undefined,
         sales: 0,
@@ -128,6 +140,7 @@ export default {
         name: '',
         discription: '',
         imgSrc: '',
+        images: [],
         price: 0,
         priceOld: undefined,
         sales: 0,
@@ -144,6 +157,9 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.temp.imgSrc = res.url;
+    },
+    handleImagesSuccess(res, file, fileList) {
+      this.temp.images = fileList.map(f => ({url: f.response && f.response.url || f.url}))
     },
     beforeAvatarUpload(file) {
       const isAllowFileType = (file.type === 'image/jpeg' || file.type === 'image/png');
@@ -183,6 +199,7 @@ export default {
     },
     handleUpdate(row) {
       this.temp = Object.assign({}, this.temp, row)
+      this.temp.images = row.images.map(i => ({url: i}))
       this.dialogStatus = 'update'
       this.dialogFormVisible = true
       this.$nextTick(() => {
@@ -193,6 +210,7 @@ export default {
       this.$refs['dataForm'].validate((valid) => {
         if (valid) {
           const tempData = Object.assign({}, this.temp)
+          tempData.images = tempData.images.map(i => i.url)
           updateGoods(this.$apollo, tempData).then(data => {
             this.dialogFormVisible = false
             this.$notify({

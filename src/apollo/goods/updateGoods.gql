@@ -3,6 +3,7 @@ mutation updateGoods(
   $name: String!,
   $type: Int!,
   $imgSrc: String!,
+  $images: [String],
   $discription: String,
   $price: Int!,
   $priceOld: Int,
@@ -13,6 +14,7 @@ mutation updateGoods(
   updateGoods(_id: $_id, input: {
     name: $name,
     imgSrc: $imgSrc,
+    images: $images,
     type: $type,
     discription: $discription,
     price: $price,
@@ -23,6 +25,7 @@ mutation updateGoods(
   }) {
     _id
     name
+    images
     type
     imgSrc
     discription

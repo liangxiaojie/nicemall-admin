@@ -4,6 +4,7 @@ query getGoodses($type: Int!) {
   }) {
     _id
     imgSrc
+    images
     type
     name
     discription
