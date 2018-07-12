@@ -38,7 +38,7 @@
     </el-table>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form :rules="rules" ref="dataForm" :model="temp" style="margin: 0 30px;">
+      <el-form :rules="rules" ref="dataForm" :model="temp" label-position="top" style="margin: 0 30px;">
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="temp.name"></el-input>
         </el-form-item>
@@ -83,6 +83,15 @@
         <el-form-item label="库存数量" prop="store_nums">
           <el-input v-model="temp.store_nums"></el-input>
         </el-form-item>
+        <el-form-item label="商品详情" prop="detail">
+          <quill-editor
+            v-model="temp.detail"
+            ref="myQuillEditor"
+            :options="editorOption"
+            @change="onEditorChange($event)"
+            >
+          </quill-editor>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -94,10 +103,18 @@
 </template>
 
 <script>
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
+
 import { getGoodses, createGoods, updateGoods, deleteGoods } from '@/apollo/goods';
 import { API_URL } from '@/config';
 
 export default {
+  components: {
+    quillEditor,
+  },
   data() {
     return {
       list: null,
@@ -116,6 +133,7 @@ export default {
         sales: 0,
         store_nums: 0,
         mark: 0,
+        detail: '',
       },
       dialogFormVisible: false,
       dialogStatus: '',
@@ -127,6 +145,7 @@ export default {
         imgSrc: [{ required: true, message: '图像不能为空', trigger: 'change' }],
       },
       uploadUrl: '',
+      editorOption: {},
     };
   },
   created() {
@@ -172,6 +191,10 @@ export default {
         this.$message.error('上传图像大小不能超过 2MB');
       }
       return isAllowFileType && isLt2M;
+    },
+    onEditorChange(e) {
+      console.log(e);
+      
     },
     handleCreate() {
       this.resetTemp()

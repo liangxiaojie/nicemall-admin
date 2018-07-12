@@ -13,5 +13,6 @@ query getGoodses($type: Int!) {
     sales
     store_nums
     mark
+    detail
   }
 }

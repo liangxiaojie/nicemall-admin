@@ -7,7 +7,8 @@ mutation createGoods(
   $priceOld: Int,
   $sales: Int!,
   $store_nums: Int!,
-  $mark: Float!
+  $mark: Float!,
+  $detail: String
   ) {
   createGoods(input: {
     name: $name,
@@ -18,7 +19,8 @@ mutation createGoods(
     priceOld: $priceOld,
     sales: $sales,
     store_nums: $store_nums,
-    mark: $mark
+    mark: $mark,
+    detail: $detail
   }) {
     _id
     name
